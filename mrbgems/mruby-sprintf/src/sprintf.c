@@ -15,6 +15,12 @@
 #include <math.h>
 #include <ctype.h>
 
+#include "uefi/math.h"
+
+#define isfinite(x) \
+    ((fpclassify(x) != FP_NAN && fpclassify(x) != FP_INFINITE))
+
+
 #define BIT_DIGITS(N)   (((N)*146)/485 + 1)  /* log2(10) =~ 146/485 */
 #define BITSPERDIG MRB_INT_BIT
 #define EXTENDSIGN(n, l) (((~0 << (n)) >> (((n)*(l)) % BITSPERDIG)) & ~(~0 << (n)))

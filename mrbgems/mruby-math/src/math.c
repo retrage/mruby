@@ -8,6 +8,7 @@
 #include "mruby/array.h"
 
 #include <math.h>
+#include "uefi/math.h"
 
 static void
 domain_error(mrb_state *mrb, const char *func)
