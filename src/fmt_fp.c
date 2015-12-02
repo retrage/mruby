@@ -36,13 +36,22 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "mruby.h"
 #include "mruby/string.h"
 
+#include "uefi/math.h"
+
 struct fmt_args {
   mrb_state *mrb;
   mrb_value str;
 };
 
+#ifndef MAX
 #define MAX(a,b) ((a)>(b) ? (a) : (b))
+#endif
+#ifndef MIN
 #define MIN(a,b) ((a)<(b) ? (a) : (b))
+#endif
+
+#define isfinite(x) \
+    ((fpclassify(x) != FP_NAN && fpclassify(x) != FP_INFINITE))
 
 /* Convenient bit representation for modifier flags, which all fall
  * within 31 codepoints of the space character. */

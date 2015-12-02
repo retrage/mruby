@@ -14,6 +14,8 @@
 #include "mruby/numeric.h"
 #include "mruby/string.h"
 
+#include "uefi/math.h"
+
 #ifdef MRB_USE_FLOAT
 #define floor(f) floorf(f)
 #define ceil(f) ceilf(f)
@@ -22,6 +24,9 @@
 #else
 #define MRB_FLO_TO_STR_FMT "%.14g"
 #endif
+
+#define isfinite(x) \
+    ((fpclassify(x) != FP_NAN && fpclassify(x) != FP_INFINITE))
 
 MRB_API mrb_float
 mrb_to_flo(mrb_state *mrb, mrb_value val)
@@ -168,7 +173,7 @@ flodivmod(mrb_state *mrb, mrb_float x, mrb_float y, mrb_float *divp, mrb_float *
 
   if (y == 0.0) {
     div = INFINITY;
-    mod = NAN;
+    mod = FP_NAN;
   }
   else {
     mod = fmod(x, y);
@@ -637,7 +642,7 @@ fix_mod(mrb_state *mrb, mrb_value x)
     mrb_int b, mod;
 
     if ((b=mrb_fixnum(y)) == 0) {
-      return mrb_float_value(mrb, NAN);
+      return mrb_float_value(mrb, FP_NAN);
     }
     fixdivmod(mrb, a, b, 0, &mod);
     return mrb_fixnum_value(mod);
@@ -668,7 +673,7 @@ fix_divmod(mrb_state *mrb, mrb_value x)
 
     if (mrb_fixnum(y) == 0) {
       return mrb_assoc_new(mrb, mrb_float_value(mrb, INFINITY),
-        mrb_float_value(mrb, NAN));
+        mrb_float_value(mrb, FP_NAN));
     }
     fixdivmod(mrb, mrb_fixnum(x), mrb_fixnum(y), &div, &mod);
     return mrb_assoc_new(mrb, mrb_fixnum_value(div), mrb_fixnum_value(mod));
@@ -1207,7 +1212,7 @@ mrb_init_numeric(mrb_state *mrb)
 #ifdef INFINITY
   mrb_define_const(mrb, fl, "INFINITY", mrb_float_value(mrb, INFINITY));
 #endif
-#ifdef NAN
-  mrb_define_const(mrb, fl, "NAN", mrb_float_value(mrb, NAN));
+#ifdef FP_NAN
+  mrb_define_const(mrb, fl, "NAN", mrb_float_value(mrb, FP_NAN));
 #endif
 }
