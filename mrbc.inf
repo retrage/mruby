@@ -45,10 +45,10 @@
 
 [Sources]
 # uefi specific source
-  src/uefi/__signbit.c
-  src/uefi/nanf.c
-  src/uefi/__fpclassifyl.c
-  src/uefi/__fpclassifyd.c
+  src/uefi/math/__signbit.c
+  src/uefi/math/nanf.c
+  src/uefi/math/__fpclassifyl.c
+  src/uefi/math/__fpclassifyd.c
 
 # mruby source
   src/crc.c
