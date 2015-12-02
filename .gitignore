@@ -19,7 +19,7 @@
 cscope.out
 /src/y.tab.c
 /bin
-/build
+/build/host-debug
 /mruby-source-*.gem
 doc/api
 .yardoc
