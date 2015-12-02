@@ -1,0 +1,151 @@
+## @file
+# mruby.inf
+#
+#  Copyright (c) 2015, Daryl McDaniel. All rights reserved.
+#  Copyright (c) 2011-2012, Intel Corporation. All rights reserved.
+#  This program and the accompanying materials
+#  are licensed and made available under the terms and conditions of the BSD License
+#  which accompanies this distribution. The full text of the license may be found at
+#  http://opensource.org/licenses/bsd-license.
+#
+#  THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+#
+##
+
+[Defines]
+  INF_VERSION                 = 0x00010016
+  BASE_NAME                   = mruby
+  FILE_GUID                   = 3200a117-9110-405f-8096-14547e29b05b
+  MODULE_TYPE                 = UEFI_APPLICATION
+  VERSION_STRING              = 0.1
+  ENTRY_POINT                 = ShellCEntryLib
+
+#
+#  VALID_ARCHITECTURES        = X64
+#
+
+[Packages]
+  StdLib/StdLib.dec
+  MdePkg/MdePkg.dec
+  ShellPkg/ShellPkg.dec
+
+[LibraryClasses]
+  UefiLib
+  DebugLib
+  LibC
+  LibString
+  LibStdio
+  LibGdtoa
+  LibMath
+  LibWchar
+  LibGen
+  LibNetUtil
+  DevMedia
+
+[Sources]
+# uefi specific source from musl
+  src/uefi/math/__signbit.c
+  src/uefi/math/nanf.c
+  src/uefi/math/__fpclassifyl.c
+  src/uefi/math/__fpclassifyd.c
+  src/uefi/math/llround.c
+  src/uefi/math/round.c
+  src/uefi/math/log1p.c
+  src/uefi/math/asinh.c
+  src/uefi/math/acosh.c
+  src/uefi/math/atanh.c
+  src/uefi/math/cbrt.c
+  src/uefi/math/erf.c
+  src/uefi/math/hypot.c
+  src/uefi/time/gmtime_r.c
+  src/uefi/time/localtime_r.c
+  src/uefi/time/__secs_to_tm.c
+
+# mruby source
+  src/crc.c
+  src/string.c
+  src/backtrace.c
+  src/compar.c
+  src/numeric.c
+  src/dump.c
+  src/gc.c
+  src/vm.c
+  src/array.c
+  src/pool.c
+  src/object.c
+  src/state.c
+  src/proc.c
+  src/codedump.c
+  src/error.c
+  src/enum.c
+  src/hash.c
+  src/range.c
+  src/class.c
+  src/print.c
+  src/symbol.c
+  src/debug.c
+  src/init.c
+  src/fmt_fp.c
+  src/variable.c
+  src/load.c
+  src/kernel.c
+  src/etc.c
+  src/version.c
+
+  build/test/mrblib/mrblib.c
+  mrbgems/mruby-sprintf/src/sprintf.c
+  mrbgems/mruby-sprintf/src/kernel.c
+  build/test/mrbgems/mruby-sprintf/gem_init.c
+  mrbgems/mruby-print/src/print.c
+  build/test/mrbgems/mruby-print/gem_init.c
+  mrbgems/mruby-math/src/math.c
+  build/test/mrbgems/mruby-math/gem_init.c
+  mrbgems/mruby-time/src/time.c
+  build/test/mrbgems/mruby-time/gem_init.c
+  mrbgems/mruby-struct/src/struct.c
+  build/test/mrbgems/mruby-struct/gem_init.c
+  build/test/mrbgems/mruby-enum-ext/gem_init.c
+  mrbgems/mruby-string-ext/src/string.c
+  build/test/mrbgems/mruby-string-ext/gem_init.c
+  mrbgems/mruby-numeric-ext/src/numeric_ext.c
+  build/test/mrbgems/mruby-numeric-ext/gem_init.c
+  mrbgems/mruby-array-ext/src/array.c
+  build/test/mrbgems/mruby-array-ext/gem_init.c
+  mrbgems/mruby-hash-ext/src/hash-ext.c
+  build/test/mrbgems/mruby-hash-ext/gem_init.c
+  mrbgems/mruby-range-ext/src/range.c
+  build/test/mrbgems/mruby-range-ext/gem_init.c
+  mrbgems/mruby-proc-ext/src/proc.c
+  build/test/mrbgems/mruby-proc-ext/gem_init.c
+  mrbgems/mruby-symbol-ext/src/symbol.c
+  build/test/mrbgems/mruby-symbol-ext/gem_init.c
+  mrbgems/mruby-random/src/random.c
+  mrbgems/mruby-random/src/mt19937ar.c
+  build/test/mrbgems/mruby-random/gem_init.c
+  mrbgems/mruby-object-ext/src/object.c
+  build/test/mrbgems/mruby-object-ext/gem_init.c
+  mrbgems/mruby-objectspace/src/mruby_objectspace.c
+  build/test/mrbgems/mruby-objectspace/gem_init.c
+  mrbgems/mruby-fiber/src/fiber.c
+  build/test/mrbgems/mruby-fiber/gem_init.c
+  build/test/mrbgems/mruby-enumerator/gem_init.c
+  build/test/mrbgems/mruby-enum-lazy/gem_init.c
+  build/test/mrbgems/mruby-toplevel-ext/gem_init.c
+  mrbgems/mruby-kernel-ext/src/kernel.c
+  build/test/mrbgems/mruby-kernel-ext/gem_init.c
+  mrbgems/mruby-compiler/core/codegen.c
+#YACC  mrbgems/mruby-compiler/core/parse.y -> build/test/mrbgems/mruby-compiler/core/y.tab.c
+  build/test/mrbgems/mruby-compiler/core/y.tab.c
+  build/test/mrbgems/gem_init.c
+#  build/test/lib/libmruby.a
+#  mrbgems/mruby-bin-mirb/tools/mirb/mirb.c
+  mrbgems/mruby-bin-mruby/tools/mruby/mruby.c
+
+[BuildOptions]
+   MSFT:*_*_IA32_CC_FLAGS         = /Oi- /wd4018 /wd4054 /wd4055 /wd4101 /wd4131 /wd4152 /wd4204 /wd4210 /wd4244 /wd4267 /wd4305 /wd4310 /wd4389 /wd4701 /wd4702 /wd4706 /I$(WORKSPACE)\AppPkg\Applications\Python\Ia32 /I$(WORKSPACE)\AppPkg\Applications\Python\Efi /I$(WORKSPACE)\AppPkg\Applications\Python\Python-$(PYTHON_VERSION)\Include /DHAVE_MEMMOVE /DUSE_PYEXPAT_CAPI /DXML_STATIC
+   MSFT:*_*_X64_CC_FLAGS          = /Oi- /wd4018 /wd4054 /wd4055 /wd4101 /wd4131 /wd4152 /wd4204 /wd4210 /wd4244 /wd4267 /wd4305 /wd4310 /wd4389 /wd4701 /wd4702 /wd4706 /I$(WORKSPACE)\AppPkg\Applications\Python\X64 /I$(WORKSPACE)\AppPkg\Applications\Python\Efi /I$(WORKSPACE)\AppPkg\Applications\Python\Python-$(PYTHON_VERSION)\Include /DHAVE_MEMMOVE /DUSE_PYEXPAT_CAPI /DXML_STATIC
+    GCC:*_*_IA32_CC_FLAGS         = -fno-builtin -Wno-format -I$(WORKSPACE)/AppPkg/Applications/Python/Ia32 -I$(WORKSPACE)/AppPkg/Applications/Python/Python-$(PYTHON_VERSION)/Include -DHAVE_MEMMOVE -DUSE_PYEXPAT_CAPI -DXML_STATIC
+#    GCC:*_*_X64_CC_FLAGS          = -Wno-format -I$(WORKSPACE)/AppPkg/Applications/Python/X64 -I$(WORKSPACE)/AppPkg/Applications/Python/Python-$(PYTHON_VERSION)/Include -DHAVE_MEMMOVE -DUSE_PYEXPAT_CAPI -DXML_STATIC
+    GCC:*_*_X64_CC_FLAGS          = -Wno-format -I$(WORKSPACE)/AppPkg/Applications/mruby/include -DHAVE_MEMMOVE -DUSE_PYEXPAT_CAPI -DXML_STATIC
+    GCC:*_*_IPF_SYMRENAME_FLAGS   = --redefine-syms=$(WORKSPACE)/StdLib/GccSymRename.txt
