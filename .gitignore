@@ -19,6 +19,14 @@
 cscope.out
 /src/y.tab.c
 /bin
+/build/host/bin
+/build/host/lib
+/build/host/mrbgems
+/build/host/mrblib
+/build/test/**/gem_test.c
+/build/test/bin
+/build/test/lib
+/build/**/LEGAL
 /build/host-debug
 /mruby-source-*.gem
 doc/api
